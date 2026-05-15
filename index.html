@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,8 +16,1508 @@
       rel="stylesheet"
     />
     <style>
-      :root { --bg: #060d18; --surface: #0b1628; --surface2: #0f1e35; --blue: #1a6cf8; --teal: #00d4a8; --amber: #f5a623; --red: #f04040; --text: #e2eaf5; --text2: #7a90aa; --text3: #3d5470; --border: rgba(255, 255, 255, 0.06); --border2: rgba(26, 108, 248, 0.25); --shadow: 0 40px 120px rgba(0, 0, 0, 0.6); --radius: 16px; --ease: cubic-bezier(0.16, 1, 0.3, 1);} * { box-sizing: border-box; } html { scroll-behavior: smooth; } body { margin: 0; min-height: 100vh; font-family: "DM Sans", sans-serif; color: var(--text); background: radial-gradient(circle at top, rgba(26, 108, 248, 0.14), transparent 32%), radial-gradient(circle at 88% 10%, rgba(0, 212, 168, 0.1), transparent 20%), radial-gradient(circle at 50% 120%, rgba(26, 108, 248, 0.08), transparent 30%), var(--bg); overflow-x: hidden; }
-      /* (styles preserved from provided script) */
+      :root {
+        --bg: #060d18;
+        --surface: #0b1628;
+        --surface2: #0f1e35;
+        --blue: #1a6cf8;
+        --teal: #00d4a8;
+        --amber: #f5a623;
+        --red: #f04040;
+        --text: #e2eaf5;
+        --text2: #7a90aa;
+        --text3: #3d5470;
+        --border: rgba(255, 255, 255, 0.06);
+        --border2: rgba(26, 108, 248, 0.25);
+        --shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+        --radius: 16px;
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "DM Sans", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top, rgba(26, 108, 248, 0.14), transparent 32%),
+          radial-gradient(circle at 88% 10%, rgba(0, 212, 168, 0.1), transparent 20%),
+          radial-gradient(circle at 50% 120%, rgba(26, 108, 248, 0.08), transparent 30%),
+          var(--bg);
+        overflow-x: hidden;
+      }
+
+      body::before,
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body::before {
+        background-image:
+          linear-gradient(rgba(26, 108, 248, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(26, 108, 248, 0.04) 1px, transparent 1px);
+        background-size: 60px 60px;
+        opacity: 0.6;
+        mask-image: radial-gradient(circle at center, black 45%, transparent 90%);
+      }
+
+      body::after {
+        inset: -15vh;
+        background:
+          radial-gradient(circle at center, transparent 40%, rgba(6, 13, 24, 0.2) 58%, rgba(6, 13, 24, 0.9) 100%);
+      }
+
+      img,
+      svg {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      button {
+        border: 0;
+        background: none;
+        cursor: pointer;
+      }
+
+      .page {
+        position: relative;
+        z-index: 1;
+      }
+
+      .container {
+        width: min(1248px, 100%);
+        margin: 0 auto;
+        padding-inline: 24px;
+      }
+
+      .nav-sentinel {
+        position: absolute;
+        inset: 0 auto auto 0;
+        width: 1px;
+        height: 1px;
+      }
+
+      .site-nav {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 20;
+        transition:
+          background 0.3s ease,
+          backdrop-filter 0.3s ease,
+          border-color 0.3s ease;
+        border-bottom: 1px solid transparent;
+      }
+
+      .site-nav.scrolled {
+        background: rgba(6, 13, 24, 0.8);
+        backdrop-filter: blur(20px);
+        border-bottom-color: var(--border);
+      }
+
+      .nav-inner {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 24px;
+        min-height: 84px;
+      }
+
+      .logo {
+        font-family: "Syne", sans-serif;
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .logo span {
+        color: var(--blue);
+      }
+
+      .nav-links {
+        display: flex;
+        justify-content: center;
+        gap: 28px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        color: var(--text2);
+      }
+
+      .nav-links a {
+        transition: color 0.2s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--teal);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 50px;
+        padding: 0 22px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-family: "Syne", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease,
+          border-color 0.25s ease,
+          color 0.25s ease,
+          background 0.25s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-primary {
+        background: var(--blue);
+        color: white;
+        box-shadow: 0 18px 40px rgba(26, 108, 248, 0.28);
+      }
+
+      .btn-primary:hover {
+        box-shadow:
+          0 22px 50px rgba(26, 108, 248, 0.32),
+          0 0 40px rgba(26, 108, 248, 0.2);
+      }
+
+      .btn-secondary {
+        border-color: var(--border2);
+        color: var(--text);
+        background: rgba(11, 22, 40, 0.45);
+      }
+
+      .btn-secondary:hover {
+        color: var(--blue);
+        border-color: rgba(26, 108, 248, 0.45);
+      }
+
+      .section {
+        padding: 112px 0;
+      }
+
+      .section-head {
+        max-width: 680px;
+        margin: 0 auto 54px;
+        text-align: center;
+      }
+
+      .eyebrow {
+        margin: 0 0 16px;
+        color: var(--blue);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .section-title {
+        margin: 0;
+        font-family: "Syne", sans-serif;
+        font-size: clamp(2.1rem, 4vw, 3.35rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 0.96;
+      }
+
+      .section-copy {
+        margin: 16px auto 0;
+        max-width: 620px;
+        color: var(--text2);
+        font-size: 1.05rem;
+        font-weight: 300;
+        line-height: 1.75;
+      }
+
+      .glow-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--blue), var(--teal), transparent);
+        opacity: 0.5;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 0.7s var(--ease),
+          transform 0.7s var(--ease);
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .hero {
+        min-height: 100svh;
+        display: grid;
+        place-items: center;
+        padding: 136px 0 104px;
+      }
+
+      .hero-shell {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+        text-align: center;
+      }
+
+      .hero-shell::before {
+        content: "";
+        position: absolute;
+        inset: 12% -12% auto;
+        height: 420px;
+        background: radial-gradient(circle, rgba(26, 108, 248, 0.18), transparent 68%);
+        filter: blur(24px);
+        z-index: -1;
+      }
+
+      .fade-up {
+        opacity: 0;
+        transform: translateY(24px);
+        animation: fadeUp 0.9s var(--ease) forwards;
+        animation-delay: var(--delay, 0s);
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 42px;
+        padding: 0 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(0, 212, 168, 0.25);
+        background: rgba(0, 212, 168, 0.05);
+        color: var(--teal);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        font-weight: 400;
+      }
+
+      .status-pulse {
+        position: relative;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--teal);
+        box-shadow: 0 0 0 6px rgba(0, 212, 168, 0.14);
+        font-size: 0;
+      }
+
+      .status-pulse::after {
+        content: "";
+        position: absolute;
+        inset: -8px;
+        border-radius: 50%;
+        border: 1px solid rgba(0, 212, 168, 0.24);
+        animation: pulse 1.8s ease-in-out infinite;
+      }
+
+      .hero-title {
+        margin: 0;
+        max-width: 900px;
+        font-family: "Syne", sans-serif;
+        font-size: clamp(3rem, 7vw, 6rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 0.92;
+        text-wrap: balance;
+      }
+
+      .hero-title span {
+        display: block;
+      }
+
+      .hero-title .gradient {
+        background: linear-gradient(90deg, var(--blue), var(--teal));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero-sub {
+        max-width: 760px;
+        margin: 0;
+        color: var(--text2);
+        font-size: 1.125rem;
+        font-weight: 300;
+        line-height: 1.8;
+      }
+
+      .hero-sub strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+      }
+
+      .terminal-panel,
+      .demo-card {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--border2);
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(15, 30, 53, 0.98), rgba(11, 22, 40, 0.98));
+        box-shadow:
+          var(--shadow),
+          0 0 80px rgba(26, 108, 248, 0.18);
+      }
+
+      .terminal-panel::after,
+      .demo-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.04), transparent 20%);
+        pointer-events: none;
+      }
+
+      .hero-terminal {
+        width: min(100%, 820px);
+        text-align: left;
+      }
+
+      .terminal-chrome {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 54px;
+        padding: 0 18px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(15, 30, 53, 0.82);
+      }
+
+      .terminal-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+
+      .terminal-dots {
+        display: flex;
+        gap: 8px;
+      }
+
+      .terminal-dots span {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        font-size: 0;
+      }
+
+      .terminal-dots span:nth-child(1) {
+        background: var(--red);
+      }
+
+      .terminal-dots span:nth-child(2) {
+        background: var(--amber);
+      }
+
+      .terminal-dots span:nth-child(3) {
+        background: var(--teal);
+      }
+
+      .terminal-title {
+        min-width: 0;
+        color: var(--text2);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .terminal-meta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--teal);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .terminal-body {
+        position: relative;
+        height: 430px;
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        overflow-y: auto;
+        scrollbar-width: none;
+        background:
+          linear-gradient(180deg, rgba(6, 13, 24, 0.06), transparent 14%),
+          repeating-linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.014),
+            rgba(255, 255, 255, 0.014) 1px,
+            transparent 1px,
+            transparent 3px
+          );
+      }
+
+      .terminal-body::-webkit-scrollbar {
+        display: none;
+      }
+
+      .chat-message {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        max-width: 88%;
+        animation: messageIn 0.45s var(--ease) both;
+      }
+
+      .chat-message.user {
+        margin-left: auto;
+        flex-direction: row-reverse;
+      }
+
+      .chat-message.user .message-main {
+        align-items: flex-end;
+      }
+
+      .message-avatar {
+        width: 32px;
+        height: 32px;
+        flex: 0 0 32px;
+        display: grid;
+        place-items: center;
+        border-radius: 10px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        font-weight: 500;
+      }
+
+      .chat-message.ai .message-avatar {
+        background: rgba(0, 212, 168, 0.14);
+        color: var(--teal);
+        border: 1px solid rgba(0, 212, 168, 0.22);
+      }
+
+      .chat-message.user .message-avatar {
+        background: rgba(26, 108, 248, 0.14);
+        color: #94b7ff;
+        border: 1px solid rgba(26, 108, 248, 0.22);
+      }
+
+      .message-main {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 0;
+      }
+
+      .message-name {
+        color: var(--text3);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.04em;
+      }
+
+      .message-bubble {
+        max-width: 100%;
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(15, 30, 53, 0.9);
+        color: var(--text);
+        line-height: 1.65;
+      }
+
+      .chat-message.user .message-bubble {
+        background: linear-gradient(180deg, rgba(26, 108, 248, 0.18), rgba(26, 108, 248, 0.08));
+        border-color: rgba(26, 108, 248, 0.22);
+      }
+
+      .message-bubble.code {
+        padding: 14px 16px;
+        background: rgba(0, 0, 0, 0.68);
+        color: var(--teal);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        white-space: pre-wrap;
+      }
+
+      .thinking {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .thinking span {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--teal);
+        animation: blink 1.2s infinite both;
+      }
+
+      .thinking span:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+
+      .thinking span:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+
+      .approval-card {
+        padding: 16px;
+        border-radius: 14px;
+        border: 1px solid rgba(245, 166, 35, 0.35);
+        background: rgba(245, 166, 35, 0.06);
+      }
+
+      .approval-label {
+        margin: 0 0 10px;
+        color: var(--amber);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .approval-body {
+        margin: 0;
+        color: var(--text);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .approval-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .ghost-button {
+        min-height: 36px;
+        padding: 0 14px;
+        border-radius: 999px;
+        border: 1px solid currentColor;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .ghost-button:hover {
+        transform: translateY(-1px);
+      }
+
+      .ghost-button.approve {
+        color: var(--teal);
+      }
+
+      .ghost-button.approve:hover {
+        background: rgba(0, 212, 168, 0.08);
+      }
+
+      .ghost-button.deny {
+        color: var(--red);
+      }
+
+      .ghost-button.deny:hover {
+        background: rgba(240, 64, 64, 0.08);
+      }
+
+      .audit-line {
+        margin-top: 10px;
+        color: var(--teal);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+      }
+
+      .stats-shell {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .stat {
+        padding: 30px 20px;
+        text-align: center;
+        border-right: 1px solid var(--border);
+      }
+
+      .stat:last-child {
+        border-right: 0;
+      }
+
+      .stat strong {
+        display: block;
+        margin-bottom: 10px;
+        background: linear-gradient(180deg, white, var(--text2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-family: "Syne", sans-serif;
+        font-size: clamp(2.25rem, 5vw, 3.75rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .stat span {
+        color: var(--text3);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .workflow-shell {
+        display: grid;
+        grid-template-columns: minmax(300px, 380px) minmax(0, 1fr);
+        gap: 80px;
+        align-items: start;
+      }
+
+      .workflow-copy {
+        position: sticky;
+        top: 120px;
+      }
+
+      .workflow-copy .section-title,
+      .workflow-copy .section-copy {
+        margin-left: 0;
+      }
+
+      .steps {
+        display: flex;
+        flex-direction: column;
+        margin-top: 34px;
+      }
+
+      .step-item {
+        display: grid;
+        grid-template-columns: 52px minmax(0, 1fr);
+        gap: 16px;
+        width: 100%;
+        padding: 20px 0;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+        opacity: 0.45;
+        transition: opacity 0.35s ease;
+      }
+
+      .step-item.active {
+        opacity: 1;
+      }
+
+      .step-badge {
+        width: 36px;
+        height: 36px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        border: 1px solid var(--border2);
+        color: var(--text2);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        transition:
+          background 0.35s ease,
+          border-color 0.35s ease,
+          color 0.35s ease;
+      }
+
+      .step-item.active .step-badge {
+        background: var(--blue);
+        border-color: transparent;
+        color: white;
+      }
+
+      .step-title {
+        margin: 0 0 6px;
+        font-family: "Syne", sans-serif;
+        font-size: 1.02rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      .step-copy {
+        margin: 0;
+        color: var(--text2);
+        font-size: 0.98rem;
+        font-weight: 300;
+        line-height: 1.7;
+      }
+
+      .demo-stage {
+        position: relative;
+        min-height: 470px;
+      }
+
+      .demo-card {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transform: translateY(20px);
+        pointer-events: none;
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+        border-color: var(--border);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+      }
+
+      .demo-card.active {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      .demo-body {
+        min-height: 416px;
+        padding: 24px;
+      }
+
+      .demo-lines,
+      .demo-pre {
+        margin: 0;
+        color: var(--text);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        line-height: 1.8;
+        white-space: pre-wrap;
+      }
+
+      .demo-pre {
+        padding: 16px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .demo-note {
+        margin: 0 0 16px;
+        color: var(--text2);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      .demo-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 18px;
+        color: var(--text3);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .demo-tick {
+        color: var(--teal);
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        padding: 1px;
+        border-radius: 16px;
+        overflow: hidden;
+        background: var(--border);
+      }
+
+      .feature-card {
+        padding: 36px 32px;
+        background: var(--bg);
+        transition:
+          transform 0.3s ease,
+          background 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-4px);
+        background: var(--surface);
+      }
+
+      .feature-icon {
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        margin-bottom: 18px;
+        border-radius: 10px;
+        background: rgba(26, 108, 248, 0.16);
+        box-shadow: inset 0 0 20px rgba(26, 108, 248, 0.08);
+        font-size: 22px;
+      }
+
+      .feature-card h3 {
+        margin: 0 0 12px;
+        font-family: "Syne", sans-serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .feature-card p {
+        margin: 0;
+        color: var(--text2);
+        font-size: 0.98rem;
+        font-weight: 300;
+        line-height: 1.75;
+      }
+
+      .channels-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .channel-card {
+        position: relative;
+        overflow: hidden;
+        padding: 32px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--surface);
+        transition:
+          transform 0.3s ease,
+          border-color 0.3s ease;
+        isolation: isolate;
+      }
+
+      .channel-card::before {
+        content: "";
+        position: absolute;
+        inset: -25% auto auto -15%;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: var(--glow, rgba(26, 108, 248, 0.16));
+        filter: blur(16px);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+      }
+
+      .channel-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--border2);
+      }
+
+      .channel-card:hover::before {
+        opacity: 1;
+      }
+
+      .channel-tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        padding: 0 12px;
+        border-radius: 999px;
+        margin-bottom: 18px;
+        background: var(--tag-bg, rgba(26, 108, 248, 0.12));
+        color: var(--tag-text, var(--blue));
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .channel-card h3 {
+        margin: 0 0 10px;
+        font-family: "Syne", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .channel-card p {
+        margin: 0 0 22px;
+        color: var(--text2);
+        font-weight: 300;
+        line-height: 1.7;
+      }
+
+      .preview-box {
+        padding: 16px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(0, 0, 0, 0.4);
+        color: var(--text);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        line-height: 1.8;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .preview-box::-webkit-scrollbar {
+        display: none;
+      }
+
+      .preview-box strong {
+        color: var(--text2);
+        font-weight: 500;
+      }
+
+      .inline-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .inline-actions span {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        padding: 0 12px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+      }
+
+      .marquee-frame {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .marquee-frame::before,
+      .marquee-frame::after {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 120px;
+        z-index: 2;
+        pointer-events: none;
+        background: linear-gradient(90deg, var(--bg), transparent);
+      }
+
+      .marquee-frame::after {
+        inset: 0 0 0 auto;
+        background: linear-gradient(270deg, var(--bg), transparent);
+      }
+
+      .marquee-track {
+        display: flex;
+        gap: 16px;
+        width: max-content;
+        padding: 6px 0;
+        animation: marquee 30s linear infinite;
+      }
+
+      .marquee-frame:hover .marquee-track {
+        animation-play-state: paused;
+      }
+
+      .plugin-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 52px;
+        padding: 0 18px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--surface);
+        transition:
+          transform 0.25s ease,
+          border-color 0.25s ease;
+      }
+
+      .plugin-pill:hover {
+        transform: translateY(-2px);
+        border-color: var(--blue);
+      }
+
+      .plugin-icon {
+        font-size: 18px;
+      }
+
+      .plugin-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .plugin-name {
+        font-family: "Syne", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      .plugin-category {
+        color: var(--text3);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .cta-card {
+        position: relative;
+        overflow: hidden;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 72px 48px;
+        border: 1px solid var(--border2);
+        border-radius: 24px;
+        background: var(--surface);
+        text-align: center;
+      }
+
+      .cta-card::before {
+        content: "";
+        position: absolute;
+        inset: -20% 15% auto;
+        height: 260px;
+        background: radial-gradient(circle, rgba(26, 108, 248, 0.24), transparent 70%);
+        filter: blur(14px);
+        pointer-events: none;
+      }
+
+      .cta-card .section-copy {
+        max-width: 560px;
+      }
+
+      .cta-form {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        max-width: 480px;
+        margin: 34px auto 18px;
+      }
+
+      .cta-form input {
+        flex: 1 1 auto;
+        min-width: 0;
+        min-height: 52px;
+        padding: 0 18px;
+        border-radius: 999px;
+        border: 1px solid var(--border2);
+        background: var(--bg);
+        color: var(--text);
+        outline: none;
+        transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .cta-form input::placeholder {
+        color: var(--text3);
+      }
+
+      .cta-form input:focus {
+        border-color: var(--blue);
+        box-shadow: 0 0 0 4px rgba(26, 108, 248, 0.12);
+      }
+
+      .curl-line {
+        margin: 0;
+        color: var(--text3);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        line-height: 1.8;
+        word-break: break-word;
+      }
+
+      .site-footer {
+        border-top: 1px solid var(--border);
+        padding: 40px 0;
+      }
+
+      .footer-inner {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 22px;
+        color: var(--text2);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+      }
+
+      .footer-copy {
+        color: var(--text3);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        text-align: right;
+      }
+
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+
+        50% {
+          opacity: 0.5;
+          transform: scale(0.8);
+        }
+      }
+
+      @keyframes blink {
+        0%,
+        80%,
+        100% {
+          opacity: 0.25;
+          transform: translateY(0);
+        }
+
+        40% {
+          opacity: 1;
+          transform: translateY(-2px);
+        }
+      }
+
+      @keyframes messageIn {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--blue);
+        border-radius: 2px;
+      }
+
+      @media (max-width: 1080px) {
+        .nav-links {
+          display: none;
+        }
+
+        .nav-inner {
+          grid-template-columns: auto auto;
+          justify-content: space-between;
+        }
+
+        .nav-inner > .btn {
+          justify-self: end;
+        }
+
+        .workflow-shell {
+          grid-template-columns: 1fr;
+          gap: 42px;
+        }
+
+        .workflow-copy {
+          position: static;
+        }
+
+        .feature-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 780px) {
+        .container {
+          padding-inline: 18px;
+        }
+
+        .section {
+          padding: 88px 0;
+        }
+
+        .site-nav .btn {
+          min-height: 42px;
+          padding: 0 16px;
+          font-size: 0.85rem;
+        }
+
+        .hero {
+          padding-top: 120px;
+        }
+
+        .hero-actions,
+        .cta-form {
+          flex-direction: column;
+        }
+
+        .hero-actions .btn,
+        .cta-form .btn,
+        .cta-form input {
+          width: 100%;
+        }
+
+        .terminal-body {
+          height: 380px;
+          padding: 18px;
+        }
+
+        .chat-message {
+          max-width: 100%;
+        }
+
+        .stats-shell,
+        .channels-grid,
+        .feature-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .stat {
+          border-right: 0;
+          border-bottom: 1px solid var(--border);
+        }
+
+        .stat:last-child {
+          border-bottom: 0;
+        }
+
+        .demo-stage {
+          min-height: 520px;
+        }
+
+        .demo-body {
+          min-height: 466px;
+          padding: 20px;
+        }
+
+        .cta-card {
+          padding: 54px 22px;
+        }
+
+        .footer-inner {
+          grid-template-columns: 1fr;
+          justify-items: center;
+          text-align: center;
+        }
+
+        .footer-copy {
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .site-nav {
+          background: rgba(6, 13, 24, 0.84);
+          backdrop-filter: blur(20px);
+          border-bottom-color: var(--border);
+        }
+
+        .nav-inner {
+          grid-template-columns: 1fr;
+          gap: 12px;
+          min-height: auto;
+          padding: 14px 0 16px;
+        }
+
+        .nav-inner .logo {
+          justify-self: center;
+          font-size: 1.45rem;
+        }
+
+        .nav-inner > .btn {
+          width: 100%;
+          justify-self: stretch;
+        }
+
+        .hero {
+          padding-top: 176px;
+        }
+
+        .hero-shell {
+          gap: 22px;
+        }
+
+        .hero-badge {
+          width: 100%;
+          min-height: auto;
+          justify-content: center;
+          padding: 12px 14px;
+          text-align: center;
+          line-height: 1.5;
+        }
+
+        .hero-title {
+          font-size: clamp(2.6rem, 14vw, 3.6rem);
+          max-width: 10ch;
+        }
+
+        .hero-sub {
+          font-size: 1rem;
+          line-height: 1.7;
+        }
+
+        .terminal-chrome {
+          display: grid;
+          grid-template-columns: 1fr;
+          justify-content: flex-start;
+          align-items: start;
+          gap: 10px;
+          min-height: auto;
+          padding: 12px 14px;
+        }
+
+        .terminal-left {
+          width: 100%;
+        }
+
+        .terminal-title {
+          font-size: 11px;
+        }
+
+        .terminal-meta {
+          font-size: 10px;
+          letter-spacing: 0.06em;
+        }
+
+        .terminal-body {
+          height: 340px;
+          padding: 16px;
+        }
+
+        .message-bubble,
+        .approval-body {
+          font-size: 13px;
+        }
+
+        .message-bubble.code,
+        .demo-lines,
+        .demo-pre {
+          font-size: 12px;
+        }
+
+        .approval-actions {
+          flex-direction: column;
+        }
+
+        .ghost-button {
+          width: 100%;
+        }
+
+        .demo-stage {
+          min-height: 540px;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .container {
+          padding-inline: 16px;
+        }
+
+        .hero {
+          padding-top: 184px;
+        }
+
+        .hero-title {
+          font-size: clamp(2.3rem, 13vw, 3rem);
+        }
+
+        .hero-sub {
+          font-size: 0.95rem;
+        }
+
+        .hero-badge {
+          font-size: 11px;
+        }
+
+        .site-nav .btn,
+        .btn {
+          min-height: 46px;
+        }
+
+        .terminal-body {
+          height: 320px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+
+        .reveal,
+        .fade-up {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+
+        .marquee-track {
+          animation: none !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -25,17 +1526,750 @@
       <nav class="site-nav" aria-label="Primary">
         <div class="container nav-inner">
           <a class="logo" href="#top" aria-label="OpsAI home">Ops<span>AI</span></a>
-          <div class="nav-links"><a href="#how-it-works">How it works</a><a href="#features">Features</a><a href="#channels">Channels</a><a href="#plugins">Plugins</a><a href="#footer">Docs</a></div>
+          <div class="nav-links">
+            <a href="#how-it-works">How it works</a>
+            <a href="#features">Features</a>
+            <a href="#channels">Channels</a>
+            <a href="#plugins">Plugins</a>
+            <a href="#footer">Docs</a>
+          </div>
           <a class="btn btn-primary" href="#cta">Start free trial</a>
         </div>
       </nav>
+
       <main id="top">
-        <section class="hero"><div class="container hero-shell"><div class="hero-badge fade-up" style="--delay: 0s;"><span class="status-pulse" aria-hidden="true">&#8203;</span>AI-powered infrastructure management</div><h1 class="hero-title fade-up" style="--delay: 0.15s;"><span>Manage your servers</span><span class="gradient">by just asking.</span></h1><p class="hero-sub fade-up" style="--delay: 0.25s;">OpsAI puts an <strong>AI operations engineer</strong> on every server. Restart services, query databases, deploy code from WhatsApp, Telegram, or your browser. No SSH. No runbooks. No 3am panic.</p></div></section>
+        <section class="hero">
+          <div class="container hero-shell">
+            <div class="hero-badge fade-up" style="--delay: 0s;">
+              <span class="status-pulse" aria-hidden="true">&#8203;</span>
+              AI-powered infrastructure management
+            </div>
+
+            <h1 class="hero-title fade-up" style="--delay: 0.15s;">
+              <span>Manage your servers</span>
+              <span class="gradient">by just asking.</span>
+            </h1>
+
+            <p class="hero-sub fade-up" style="--delay: 0.25s;">
+              OpsAI puts an <strong>AI operations engineer</strong> on every server.
+              Restart services, query databases, deploy code from WhatsApp, Telegram,
+              or your browser. No SSH. No runbooks. No 3am panic.
+            </p>
+
+            <div class="hero-actions fade-up" style="--delay: 0.35s;">
+              <a class="btn btn-primary" href="#cta">Install in 5 minutes →</a>
+              <a class="btn btn-secondary" href="#how-it-works">Watch a demo</a>
+            </div>
+
+            <div class="terminal-panel hero-terminal fade-up" style="--delay: 0.45s;">
+              <div class="terminal-chrome">
+                <div class="terminal-left">
+                  <div class="terminal-dots" aria-hidden="true">
+                    <span>&#8203;</span>
+                    <span>&#8203;</span>
+                    <span>&#8203;</span>
+                  </div>
+                  <div class="terminal-title">OpsAI — web-01 · Ubuntu 22.04 · online</div>
+                </div>
+                <div class="terminal-meta">
+                  <span class="status-pulse" aria-hidden="true">&#8203;</span>
+                  live incident
+                </div>
+              </div>
+              <div class="terminal-body" data-hero-chat aria-live="polite"></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="glow-divider" aria-hidden="true"></div>
+
+        <section class="section" id="stats">
+          <div class="container">
+            <div class="stats-shell">
+              <div class="stat reveal" data-delay="0">
+                <strong>5 min</strong>
+                <span>to first server managed</span>
+              </div>
+              <div class="stat reveal" data-delay="100">
+                <strong>0</strong>
+                <span>inbound ports required</span>
+              </div>
+              <div class="stat reveal" data-delay="200">
+                <strong>100%</strong>
+                <span>audit trail coverage</span>
+              </div>
+              <div class="stat reveal" data-delay="300">
+                <strong>24/7</strong>
+                <span>AI on-call engineer</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="glow-divider" aria-hidden="true"></div>
+
+        <section class="section" id="how-it-works">
+          <div class="container workflow-shell">
+            <div class="workflow-copy">
+              <p class="eyebrow reveal" data-delay="0">How it works</p>
+              <h2 class="section-title reveal" data-delay="100">Plain English.<br />Real actions.</h2>
+              <p class="section-copy reveal" data-delay="180">
+                OpsAI turns terse requests into exact operational steps, keeps risky work gated,
+                and streams every result back where your team already communicates.
+              </p>
+
+              <div class="steps reveal" data-delay="240">
+                <button class="step-item active" data-step="0" type="button">
+                  <span class="step-badge">01</span>
+                  <span>
+                    <span class="step-title">You say what you need</span>
+                    <span class="step-copy">
+                      In plain English. “Why is the site slow?” or “deploy the latest build”.
+                    </span>
+                  </span>
+                </button>
+
+                <button class="step-item" data-step="1" type="button">
+                  <span class="step-badge">02</span>
+                  <span>
+                    <span class="step-title">AI maps it to an action</span>
+                    <span class="step-copy">
+                      OpsAI reads your server context and picks the exact plugin, command,
+                      and arguments.
+                    </span>
+                  </span>
+                </button>
+
+                <button class="step-item" data-step="2" type="button">
+                  <span class="step-badge">03</span>
+                  <span>
+                    <span class="step-title">Risky ops need your approval</span>
+                    <span class="step-copy">
+                      Safe reads run instantly. Anything destructive sends you an approval card.
+                    </span>
+                  </span>
+                </button>
+
+                <button class="step-item" data-step="3" type="button">
+                  <span class="step-badge">04</span>
+                  <span>
+                    <span class="step-title">Output streams back live</span>
+                    <span class="step-copy">
+                      Watch the terminal output in real time. Everything is logged to an audit trail.
+                    </span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <div class="demo-stage reveal" data-delay="120">
+              <article class="demo-card active">
+                <div class="terminal-chrome">
+                  <div class="terminal-left">
+                    <div class="terminal-dots" aria-hidden="true">
+                      <span>&#8203;</span>
+                      <span>&#8203;</span>
+                      <span>&#8203;</span>
+                    </div>
+                    <div class="terminal-title">Incident chat · web-01</div>
+                  </div>
+                  <div class="terminal-meta">chat view</div>
+                </div>
+                <div class="demo-body">
+                  <div class="demo-label">Step 01 · request</div>
+                  <p class="demo-note">
+                    Natural language comes first. The operator never has to remember command flags.
+                  </p>
+                  <pre class="demo-pre">[you] why is checkout timing out?
+[opsai] pulling nginx, postgres, and app latency...
+[opsai] seeing a connection pool spike after deploy</pre>
+                </div>
+              </article>
+
+              <article class="demo-card">
+                <div class="terminal-chrome">
+                  <div class="terminal-left">
+                    <div class="terminal-dots" aria-hidden="true">
+                      <span>&#8203;</span>
+                      <span>&#8203;</span>
+                      <span>&#8203;</span>
+                    </div>
+                    <div class="terminal-title">Resolved intent · planner</div>
+                  </div>
+                  <div class="terminal-meta">execution map</div>
+                </div>
+                <div class="demo-body">
+                  <div class="demo-label">Step 02 · routing</div>
+                  <pre class="demo-lines">plugin: postgres
+action: inspect_connection_pool
+args: {"database":"prod","top_queries":5}
+risk: READ
+
+plugin: docker
+action: inspect_container
+args: {"name":"checkout-api"}
+risk: READ
+
+plugin: netstat
+action: active_connections
+args: {"port":443}
+risk: READ</pre>
+                </div>
+              </article>
+
+              <article class="demo-card">
+                <div class="terminal-chrome">
+                  <div class="terminal-left">
+                    <div class="terminal-dots" aria-hidden="true">
+                      <span>&#8203;</span>
+                      <span>&#8203;</span>
+                      <span>&#8203;</span>
+                    </div>
+                    <div class="terminal-title">Approval gate · app.service</div>
+                  </div>
+                  <div class="terminal-meta">human in the loop</div>
+                </div>
+                <div class="demo-body">
+                  <div class="demo-label">Step 03 · approval</div>
+                  <p class="demo-note">
+                    OpsAI explains what it wants to do, why it matters, and the exact risk class.
+                  </p>
+                  <div class="approval-card">
+                    <p class="approval-label">⚠ Approval required · restart app.service</p>
+                    <p class="approval-body">
+                      Risk: WRITE · restarts the application process and briefly drops live requests
+                      while the service is recycled.
+                    </p>
+                    <div class="approval-actions">
+                      <button class="ghost-button approve" type="button">✓ Approve</button>
+                      <button class="ghost-button deny" type="button">✗ Deny</button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="demo-card">
+                <div class="terminal-chrome">
+                  <div class="terminal-left">
+                    <div class="terminal-dots" aria-hidden="true">
+                      <span>&#8203;</span>
+                      <span>&#8203;</span>
+                      <span>&#8203;</span>
+                    </div>
+                    <div class="terminal-title">Live output · app.service</div>
+                  </div>
+                  <div class="terminal-meta">streaming logs</div>
+                </div>
+                <div class="demo-body">
+                  <div class="demo-label">Step 04 · result</div>
+                  <pre class="demo-lines">$ systemctl restart app
+Stopping app.service...
+Starting app.service...
+<span class="demo-tick">✓</span> app.service active (running)
+<span class="demo-tick">✓</span> p95 latency back under 160ms
+<span class="demo-tick">✓</span> incident closed and written to audit trail</pre>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <div class="glow-divider" aria-hidden="true"></div>
+
+        <section class="section" id="features">
+          <div class="container">
+            <div class="section-head">
+              <p class="eyebrow reveal" data-delay="0">Features</p>
+              <h2 class="section-title reveal" data-delay="80">Operate without tab-hopping.</h2>
+              <p class="section-copy reveal" data-delay="160">
+                Everything here is built to keep incidents short, approvals explicit, and operators
+                out of brittle shell history.
+              </p>
+            </div>
+
+            <div class="feature-grid">
+              <article class="feature-card reveal" data-delay="0">
+                <div class="feature-icon">⚡</div>
+                <h3>Instant install</h3>
+                <p>One curl command. Under 90 seconds. Ubuntu, Debian, CentOS, Amazon Linux.</p>
+              </article>
+
+              <article class="feature-card reveal" data-delay="80">
+                <div class="feature-icon">🔒</div>
+                <h3>Zero inbound ports</h3>
+                <p>Agent connects outbound only. No SSH from our side. No firewall changes.</p>
+              </article>
+
+              <article class="feature-card reveal" data-delay="160">
+                <div class="feature-icon">🧠</div>
+                <h3>Context-aware AI</h3>
+                <p>OpsAI knows your server state before it acts. It doesn't guess. It knows.</p>
+              </article>
+
+              <article class="feature-card reveal" data-delay="0">
+                <div class="feature-icon">📋</div>
+                <h3>Full audit trail</h3>
+                <p>Every command, every output, every approval — logged immutably.</p>
+              </article>
+
+              <article class="feature-card reveal" data-delay="80">
+                <div class="feature-icon">🔌</div>
+                <h3>Plugin system</h3>
+                <p>Postgres, MySQL, Redis, Docker, Nginx, Git — built in. Custom? 3 shell scripts.</p>
+              </article>
+
+              <article class="feature-card reveal" data-delay="160">
+                <div class="feature-icon">🚨</div>
+                <h3>Proactive alerts</h3>
+                <p>When disk hits 85% or nginx goes down, it alerts you before your customers do.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <div class="glow-divider" aria-hidden="true"></div>
+
+        <section class="section" id="channels">
+          <div class="container">
+            <div class="section-head">
+              <p class="eyebrow reveal" data-delay="0">Channels</p>
+              <h2 class="section-title reveal" data-delay="80">Meet your servers where your team already works.</h2>
+              <p class="section-copy reveal" data-delay="160">
+                Reply in chat, click an approval button, or let another system trigger the workflow.
+              </p>
+            </div>
+
+            <div class="channels-grid">
+              <article
+                class="channel-card reveal"
+                data-delay="0"
+                style="--glow: rgba(37, 211, 102, 0.18); --tag-bg: rgba(37, 211, 102, 0.12); --tag-text: #55d98d;"
+              >
+                <div class="channel-tag">WhatsApp</div>
+                <h3>Message your server</h3>
+                <p>Send commands from WhatsApp. Approve operations with a reply.</p>
+                <div class="preview-box">
+                  <div><strong>You:</strong> restart nginx on web-01</div>
+                  <div>
+                    <strong>OpsAI:</strong> ⚠ Approval needed — restart will drop connections.
+                    Reply YES to confirm.
+                  </div>
+                  <div><strong>You:</strong> yes</div>
+                  <div><strong>OpsAI:</strong> ✓ nginx restarted · 1.4s</div>
+                </div>
+              </article>
+
+              <article
+                class="channel-card reveal"
+                data-delay="80"
+                style="--glow: rgba(38, 153, 255, 0.18); --tag-bg: rgba(38, 153, 255, 0.12); --tag-text: #67b5ff;"
+              >
+                <div class="channel-tag">Telegram</div>
+                <h3>Bot that actually does things</h3>
+                <p>Rich formatting, inline buttons for approvals, proactive alert pushes.</p>
+                <div class="preview-box">
+                  <div><strong>OpsAI Alert:</strong> nginx on edge-02 dropped 14 requests</div>
+                  <div class="inline-actions">
+                    <span>View logs</span>
+                    <span>Restart nginx</span>
+                    <span>Escalate</span>
+                  </div>
+                </div>
+              </article>
+
+              <article
+                class="channel-card reveal"
+                data-delay="160"
+                style="--glow: rgba(245, 166, 35, 0.18); --tag-bg: rgba(245, 166, 35, 0.12); --tag-text: #ffc163;"
+              >
+                <div class="channel-tag">Webhook</div>
+                <h3>Automated remediation</h3>
+                <p>Connect Grafana, PagerDuty, or GitHub. When an alert fires, OpsAI acts.</p>
+                <div class="preview-box">
+                  <div><strong>Grafana:</strong> worker queue lag above threshold</div>
+                  <div><strong>OpsAI:</strong> scaling queue workers from 4 → 8</div>
+                  <div><strong>Result:</strong> backlog cleared in 38s</div>
+                </div>
+              </article>
+
+              <article
+                class="channel-card reveal"
+                data-delay="240"
+                style="--glow: rgba(26, 108, 248, 0.18); --tag-bg: rgba(26, 108, 248, 0.12); --tag-text: #82abff;"
+              >
+                <div class="channel-tag">Web dashboard</div>
+                <h3>Full command centre</h3>
+                <p>Fleet overview, live metrics, log viewer, audit log, plugin manager.</p>
+                <div class="preview-box"><pre class="demo-lines">HOST       CPU   MEM   STATUS
+web-01     41%   63%   ONLINE
+queue-02   76%   58%   SCALING
+db-prod    38%   71%   HEALTHY</pre></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <div class="glow-divider" aria-hidden="true"></div>
+
+        <section class="section" id="plugins">
+          <div class="container">
+            <div class="section-head">
+              <p class="eyebrow reveal" data-delay="0">Plugins</p>
+              <h2 class="section-title reveal" data-delay="80">A terminal-first runtime with real operators’ tools.</h2>
+              <p class="section-copy reveal" data-delay="160">
+                Databases, services, networking, deployments, and the escape hatch for your own shell glue.
+              </p>
+            </div>
+
+            <div class="marquee-frame reveal" data-delay="220">
+              <div class="marquee-track" data-plugin-track></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="glow-divider" aria-hidden="true"></div>
+
+        <section class="section" id="cta">
+          <div class="container">
+            <div class="cta-card reveal" data-delay="0">
+              <h2 class="section-title">Your AI ops engineer<br />is ready to start.</h2>
+              <p class="section-copy">
+                14-day free trial. No credit card. One curl command to install.
+              </p>
+
+              <div class="cta-form">
+                <input type="email" placeholder="Work email" aria-label="Work email" />
+                <a class="btn btn-primary" href="#top">Start free trial</a>
+              </div>
+
+              <p class="curl-line">
+                or: curl -sSL https://get.opsai.io | bash -s -- --token=YOUR_TOKEN
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer class="site-footer" id="footer"><div class="container footer-inner"><a class="logo" href="#top" aria-label="OpsAI home" style="color: var(--text2);">Ops<span>AI</span></a><div class="footer-copy">© 2025 OpsAI Inc.</div></div></footer>
+
+      <footer class="site-footer" id="footer">
+        <div class="container footer-inner">
+          <a class="logo" href="#top" aria-label="OpsAI home" style="color: var(--text2);">Ops<span>AI</span></a>
+          <div class="footer-links">
+            <a href="#footer">Docs</a>
+            <a href="#cta">Pricing</a>
+            <a href="#stats">Status</a>
+            <a href="#plugins">GitHub</a>
+            <a href="#footer">Privacy</a>
+          </div>
+          <div class="footer-copy">© 2025 OpsAI Inc.</div>
+        </div>
+      </footer>
     </div>
+
     <script>
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const revealItems = document.querySelectorAll(".reveal");
+      if (reduceMotion) {
+        revealItems.forEach((item) => item.classList.add("visible"));
+      } else {
+        const revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) {
+                return;
+              }
+
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.12 }
+        );
+
+        revealItems.forEach((item) => {
+          const delay = item.dataset.delay;
+          if (delay) {
+            item.style.transitionDelay = `${delay}ms`;
+          }
+          revealObserver.observe(item);
+        });
+      }
+
+      const nav = document.querySelector(".site-nav");
+      const navSentinel = document.querySelector(".nav-sentinel");
+      if (nav && navSentinel) {
+        const navObserver = new IntersectionObserver(
+          ([entry]) => {
+            nav.classList.toggle("scrolled", !entry.isIntersecting);
+          },
+          {
+            rootMargin: "-40px 0px 0px 0px",
+            threshold: 0,
+          }
+        );
+
+        navObserver.observe(navSentinel);
+      }
+
+      const heroChat = document.querySelector("[data-hero-chat]");
+      const transcript = [
+        {
+          delay: 1000,
+          role: "user",
+          name: "Operator",
+          type: "text",
+          content: "nginx is returning 502 errors. What's going on?",
+        },
+        {
+          delay: 1200,
+          role: "ai",
+          name: "OpsAI",
+          type: "thinking",
+        },
+        {
+          delay: 900,
+          role: "ai",
+          name: "OpsAI",
+          type: "text",
+          content: "Checking nginx logs and upstream connections...",
+        },
+        {
+          delay: 1200,
+          role: "ai",
+          name: "OpsAI",
+          type: "code",
+          content: "→ nginx: error.log tail\n→ netstat: upstream connections\n→ systemd: nginx status",
+        },
+        {
+          delay: 2000,
+          role: "ai",
+          name: "OpsAI",
+          type: "text",
+          content: "Found it. Upstream app on port 3000 is down. I can restart it.",
+        },
+        {
+          delay: 2500,
+          role: "ai",
+          name: "OpsAI",
+          type: "approval",
+        },
+        {
+          delay: 800,
+          role: "user",
+          name: "Operator",
+          type: "text",
+          content: "✓ Approved",
+        },
+        {
+          delay: 3000,
+          role: "ai",
+          name: "OpsAI",
+          type: "output",
+          content:
+            "$ systemctl restart app\nStopping app.service...\nStarting app.service...\n✓ app.service active (running)\n✓ nginx 502 errors resolved",
+          audit: "✓ Done · logged to audit trail",
+        },
+      ];
+
+      let heroTimers = [];
+
+      const clearHeroTimers = () => {
+        heroTimers.forEach((timer) => window.clearTimeout(timer));
+        heroTimers = [];
+      };
+
+      const createChatNode = (entry) => {
+        const article = document.createElement("article");
+        article.className = `chat-message ${entry.role}`;
+
+        const avatar = document.createElement("div");
+        avatar.className = "message-avatar";
+        avatar.textContent = entry.role === "user" ? "YOU" : "AI";
+
+        const main = document.createElement("div");
+        main.className = "message-main";
+
+        const name = document.createElement("div");
+        name.className = "message-name";
+        name.textContent = entry.name;
+
+        main.appendChild(name);
+
+        if (entry.type === "approval") {
+          const bubble = document.createElement("div");
+          bubble.className = "approval-card";
+          bubble.innerHTML = `
+            <p class="approval-label">⚠ Approval required · restart app.service</p>
+            <p class="approval-body">Risk: WRITE · will restart the application</p>
+            <div class="approval-actions">
+              <button class="ghost-button approve" type="button">✓ Approve</button>
+              <button class="ghost-button deny" type="button">✗ Deny</button>
+            </div>
+          `;
+          main.appendChild(bubble);
+        } else {
+          const bubble = document.createElement("div");
+          bubble.className = "message-bubble";
+
+          if (entry.type === "code" || entry.type === "output") {
+            bubble.classList.add("code");
+            bubble.textContent = entry.content;
+          } else if (entry.type === "thinking") {
+            bubble.innerHTML = `
+              <div class="thinking" aria-label="OpsAI is thinking">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            `;
+          } else {
+            bubble.textContent = entry.content;
+          }
+
+          main.appendChild(bubble);
+
+          if (entry.audit) {
+            const audit = document.createElement("div");
+            audit.className = "audit-line";
+            audit.textContent = entry.audit;
+            main.appendChild(audit);
+          }
+        }
+
+        article.appendChild(avatar);
+        article.appendChild(main);
+        return article;
+      };
+
+      const appendHeroMessage = (entry) => {
+        if (!heroChat) {
+          return;
+        }
+
+        heroChat.appendChild(createChatNode(entry));
+        heroChat.scrollTop = heroChat.scrollHeight;
+      };
+
+      const renderHeroSequence = () => {
+        if (!heroChat) {
+          return;
+        }
+
+        clearHeroTimers();
+        heroChat.innerHTML = "";
+
+        if (reduceMotion) {
+          transcript.forEach((entry) => appendHeroMessage(entry));
+          return;
+        }
+
+        let elapsed = 0;
+        transcript.forEach((entry) => {
+          elapsed += entry.delay;
+          const timer = window.setTimeout(() => appendHeroMessage(entry), elapsed);
+          heroTimers.push(timer);
+        });
+
+        heroTimers.push(
+          window.setTimeout(() => {
+            renderHeroSequence();
+          }, elapsed + 1600)
+        );
+      };
+
+      renderHeroSequence();
+
+      document.addEventListener("visibilitychange", () => {
+        if (reduceMotion || !heroChat) {
+          return;
+        }
+
+        if (document.hidden) {
+          clearHeroTimers();
+        } else {
+          renderHeroSequence();
+        }
+      });
+
+      const stepButtons = Array.from(document.querySelectorAll(".step-item"));
+      const demoCards = Array.from(document.querySelectorAll(".demo-card"));
+      let activeStep = 0;
+      let workflowTimer = 0;
+
+      const setActiveStep = (nextIndex) => {
+        activeStep = nextIndex;
+
+        stepButtons.forEach((button, index) => {
+          const active = index === nextIndex;
+          button.classList.toggle("active", active);
+          if (active) {
+            button.setAttribute("aria-current", "step");
+          } else {
+            button.removeAttribute("aria-current");
+          }
+        });
+
+        demoCards.forEach((card, index) => {
+          card.classList.toggle("active", index === nextIndex);
+        });
+      };
+
+      const restartWorkflowLoop = () => {
+        if (workflowTimer) {
+          window.clearInterval(workflowTimer);
+        }
+
+        if (reduceMotion) {
+          return;
+        }
+
+        workflowTimer = window.setInterval(() => {
+          setActiveStep((activeStep + 1) % stepButtons.length);
+        }, 3200);
+      };
+
+      stepButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          setActiveStep(Number(button.dataset.step));
+          restartWorkflowLoop();
+        });
+      });
+
+      setActiveStep(0);
+      restartWorkflowLoop();
+
+      const plugins = [
+        ["🐘", "PostgreSQL", "database"],
+        ["🐬", "MySQL", "database"],
+        ["🔴", "Redis", "database"],
+        ["🐳", "Docker", "containers"],
+        ["🌐", "Nginx", "web server"],
+        ["⚙️", "systemd", "services"],
+        ["📁", "Files", "filesystem"],
+        ["🌿", "Git", "code"],
+        ["🚀", "Deploy", "code"],
+        ["🔥", "Firewall", "security"],
+        ["🔐", "SSL/TLS", "security"],
+        ["📊", "Netstat", "network"],
+        ["📦", "Kubernetes", "containers"],
+        ["🔧", "Custom plugin", "sdk"],
+      ];
+
+      const pluginTrack = document.querySelector("[data-plugin-track]");
+      if (pluginTrack) {
+        [...plugins, ...plugins].forEach(([icon, name, category]) => {
+          const pill = document.createElement("div");
+          pill.className = "plugin-pill";
+          pill.innerHTML = `
+            <span class="plugin-icon" aria-hidden="true">${icon}</span>
+            <span class="plugin-meta">
+              <span class="plugin-name">${name}</span>
+              <span class="plugin-category">${category}</span>
+            </span>
+          `;
+          pluginTrack.appendChild(pill);
+        });
+      }
     </script>
   </body>
 </html>
